@@ -12,11 +12,11 @@
 *                                          All Rights Reserved
 *
 *********************************************************************************************************/
-#include <ESP8266WiFi.h>
-#include <epd.h>
+//#include <ESP8266WiFi.h>
+#include "epd.h"
 
-const int wake_up = 5;
-const int reset = 4;
+const int wake_up = 22;
+const int reset = 21;
 
 /*******************************************************************************
 * Function Name  : void base_draw(void)
@@ -43,7 +43,7 @@ void base_draw(void)
       epd_draw_pixel(i + 1, j + 1);
     }
   }
-  epd_udpate();
+  epd_update();
   delay(3000);
 
   /*
@@ -55,7 +55,7 @@ void base_draw(void)
     epd_draw_line(0, 0, i, 599);
     epd_draw_line(799, 0, i, 599);
   }
-  epd_udpate();
+  epd_update();
   delay(3000);
 
   /*
@@ -71,7 +71,7 @@ void base_draw(void)
   epd_set_color(GRAY, WHITE);
   epd_fill_rect(210, 10, 300, 100);
 
-  epd_udpate();
+  epd_update();
   delay(3000);
 
   /*
@@ -83,7 +83,7 @@ void base_draw(void)
   {
     epd_draw_circle(399, 299, i);
   }
-  epd_udpate();
+  epd_update();
   delay(3000);
 
   /*
@@ -97,7 +97,7 @@ void base_draw(void)
       epd_fill_circle(50 + i * 100, 50 + j * 100, 50);
     }
   }
-  epd_udpate();
+  epd_update();
   delay(3000);
 
   /*
@@ -108,7 +108,7 @@ void base_draw(void)
   {
     epd_draw_triangle(399, 249 - i * 50, 349 - i * 50, 349 + i * 50, 449 + i * 50, 349 + i * 50);
   }
-  epd_udpate();
+  epd_update();
   delay(3000);
 }
 
@@ -139,7 +139,7 @@ void draw_text_demo(void)
   epd_disp_string("ASCII64: Hello, World!", 0, 450);
 
 
-  epd_udpate();
+  epd_update();
   delay(3000);
 }
 
@@ -147,18 +147,18 @@ void draw_bitmap_demo(void)
 {
   epd_clear();
   epd_disp_bitmap("PIC4.BMP", 0, 0);
-  epd_udpate();
+  epd_update();
   delay(5000);
 
   epd_clear();
   epd_disp_bitmap("PIC2.BMP", 0, 100);
   epd_disp_bitmap("PIC3.BMP", 400, 100);
-  epd_udpate();
+  epd_update();
   delay(5000);
 
   epd_clear();
   epd_disp_bitmap("PIC7.BMP", 0, 0);
-  epd_udpate();
+  epd_update();
 }
 
 
@@ -169,11 +169,11 @@ void setup(void)
   /*
   user led init
   */
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
+//  pinMode(LED_BUILTIN, OUTPUT);
+//  digitalWrite(LED_BUILTIN, LOW);
 
-  epd_init(wake_up,reset);
-  epd_wakeup(wake_up);
+  epd_init();
+  epd_wakeup();
   epd_set_memory(MEM_NAND);
 }
 
@@ -199,13 +199,14 @@ void loop(void)
     if(flag)
     {
       flag = 0;
-      digitalWrite(LED_BUILTIN, LOW);
+//      digitalWrite(LED_BUILTIN, LOW);
     }
     else
     {
       flag = 1;
-      digitalWrite(LED_BUILTIN, HIGH);
+//      digitalWrite(LED_BUILTIN, HIGH);
     }
     delay(500);
   }
 }
+
